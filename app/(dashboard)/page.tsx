@@ -1,8 +1,8 @@
 "use client";
+import { use } from "react";
 import BoardList from "@/components/board/BoardList";
 import EmptyOrganization from "@/components/empty/EmptyOrganization";
 import { useOrganization } from "@clerk/nextjs";
-import { use } from "react";
 
 interface DashboardPageProps {
   searchParams: Promise<{
