@@ -27,7 +27,7 @@ const CreateOrg = () => {
           </Hint>
         </div>
       </DialogTrigger>
-      <DialogContent className="bg-transparent border-none shadow-none">
+      <DialogContent className="bg-transparent border-none shadow-none p-0 w-[440px]">
         <DialogTitle />
         <CreateOrganization />
       </DialogContent>
