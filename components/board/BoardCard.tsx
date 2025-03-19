@@ -7,6 +7,9 @@ import BoardCardFooter from "./BoardCardFooter";
 import { Skeleton } from "../ui/skeleton";
 import BoardActions from "./BoardActions";
 import { MoreHorizontal } from "lucide-react";
+import { useApiMutation } from "@/hook/UseApiMutation";
+import { api } from "@/convex/_generated/api";
+import { toast } from "sonner";
 
 interface BoardCardProps {
   id: string;
@@ -30,9 +33,16 @@ const BoardCard = ({
   isFavorite,
 }: BoardCardProps) => {
   const { userId } = useAuth();
+  const { mutate, pending } = useApiMutation(api.board.favorite);
 
   const authorLabel = userId === authorId ? "You" : authorName;
   const createdAtLabel = formatDistanceToNow(createdAt, { addSuffix: true });
+
+  const ToggoleFavorite = () => {
+    mutate({ id, orgId }).catch(() => {
+      toast.error("Failed to Toggle Favorite");
+    });
+  };
 
   return (
     <Link href={`board/${id}`}>
@@ -51,8 +61,8 @@ const BoardCard = ({
           title={title}
           authorLabel={authorLabel}
           createdAtLabel={createdAtLabel}
-          onClick={() => {}}
-          disabled={false}
+          onClick={ToggoleFavorite}
+          disabled={pending}
         />
       </div>
     </Link>

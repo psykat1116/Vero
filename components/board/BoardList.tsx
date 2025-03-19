@@ -13,7 +13,7 @@ interface BoardListProps {
 }
 
 const BoardList = ({ orgId, search, favorites }: BoardListProps) => {
-  const data = useQuery(api.boards.get, { orgId });
+  const data = useQuery(api.boards.get, { orgId, search, favorites });
 
   if (data === undefined) {
     return (
@@ -22,7 +22,7 @@ const BoardList = ({ orgId, search, favorites }: BoardListProps) => {
           {favorites ? "Favorite Boards" : "Team Boards"}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 mt-8 gap-5 pb-10">
-          <NewBoardCard orgId={orgId} disabled/>
+          <NewBoardCard orgId={orgId} disabled />
           <BoardCard.Skeleton />
           <BoardCard.Skeleton />
           <BoardCard.Skeleton />
@@ -63,7 +63,7 @@ const BoardList = ({ orgId, search, favorites }: BoardListProps) => {
             authorName={board.authorName}
             createdAt={board._creationTime}
             orgId={board.orgId}
-            isFavorite={false}
+            isFavorite={board.isFavorite}
           />
         ))}
       </div>
