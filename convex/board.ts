@@ -1,4 +1,4 @@
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
 const images = [
@@ -127,6 +127,18 @@ export const favorite = mutation({
         userId: identity.subject,
         boardId: board._id,
       });
+    }
+
+    return board;
+  },
+});
+
+export const get = query({
+  args: { id: v.id("boards") },
+  handler: async (ctx, args) => {
+    const board = await ctx.db.get(args.id);
+    if (!board) {
+      throw new Error("Board Not Found");
     }
 
     return board;
