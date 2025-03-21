@@ -18,7 +18,7 @@ const UserAvatar = ({ src, name, fallback, borderColor }: UserAvatarProps) => {
         style={{ borderColor: borderColor }}
       >
         <AvatarImage src={src} className="rounded-full" />
-        <AvatarFallback className="text-xs font-semibold">
+        <AvatarFallback className="text-xs font-semibold flex items-center justify-center">
           {fallback}
         </AvatarFallback>
       </Avatar>

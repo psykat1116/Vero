@@ -37,7 +37,6 @@ export type CanvasState =
       LayerType:
         | LayerType.Ellipse
         | LayerType.Rectangle
-        | LayerType.Path
         | LayerType.Text
         | LayerType.Note;
     };
@@ -115,3 +114,10 @@ export type XYWH = {
   width: number;
   height: number;
 };
+
+export type Layer =
+  | RectangleLayer
+  | EllipseLayer
+  | PathLayer
+  | TextLayer
+  | NoteLayer;
