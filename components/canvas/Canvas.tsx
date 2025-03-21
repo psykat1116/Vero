@@ -28,6 +28,7 @@ import { LiveObject } from "@liveblocks/client";
 import LayerPreview from "./LayerPreview";
 import { IdToColor } from "@/lib/color";
 import SelectionBox from "./SelectionBox";
+import SelectionTool from "./SelectionTool";
 
 interface CanvasProps {
   boardId: string;
@@ -46,9 +47,9 @@ const Canvas = ({ boardId }: CanvasProps) => {
   });
   const [camera, setCamers] = useState<Camera>({ x: 0, y: 0 });
   const [lastUsedColor, setLastUserColor] = useState<Color>({
-    r: 0,
-    g: 0,
-    b: 0,
+    r: 10,
+    g: 20,
+    b: 30,
   });
 
   const insertLayer = useMutation(
@@ -84,6 +85,39 @@ const Canvas = ({ boardId }: CanvasProps) => {
       setCanvasState({ mode: CanvasMode.None });
     },
     [lastUsedColor]
+  );
+
+  const unselectLayer = useMutation(({ self, setMyPresence }) => {
+    if (self.presence.selection.length > 0) {
+      setMyPresence({ selection: [] }, { addToHistory: true });
+    }
+  }, []);
+
+  const translateSelectedLayer = useMutation(
+    ({ storage, self }, point: Point) => {
+      if (canvasState.mode !== CanvasMode.Translating) {
+        return;
+      }
+
+      const offset = {
+        x: point.x - canvasState.current.x,
+        y: point.y - canvasState.current.y,
+      };
+
+      const liveLayers = storage.get("layers");
+      for (const id of self.presence.selection) {
+        const layer = liveLayers.get(id);
+        if (layer) {
+          layer.update({
+            x: layer.get("x") + offset.x,
+            y: layer.get("y") + offset.y,
+          });
+        }
+      }
+
+      setCanvasState({ mode: CanvasMode.Translating, current: point });
+    },
+    [canvasState]
   );
 
   const resizeSelectedLayer = useMutation(
@@ -128,24 +162,44 @@ const Canvas = ({ boardId }: CanvasProps) => {
       e.preventDefault();
       const current = pointerEventsToCanvasPoint(e, camera);
 
-      if (canvasState.mode === CanvasMode.Resizing) {
-        console.log("resizing");
+      if (canvasState.mode === CanvasMode.Translating) {
+        translateSelectedLayer(current);
+      } else if (canvasState.mode === CanvasMode.Resizing) {
         resizeSelectedLayer(current);
       }
 
       setMyPresence({ cursor: current });
     },
-    [canvasState, resizeSelectedLayer, camera]
+    [canvasState, resizeSelectedLayer, camera, translateSelectedLayer]
   );
 
   const onPointerLeave = useMutation(({ setMyPresence }) => {
     setMyPresence({ cursor: null });
   }, []);
 
+  const onPointerDown = useCallback(
+    (e: React.PointerEvent) => {
+      const point = pointerEventsToCanvasPoint(e, camera);
+      if (canvasState.mode === CanvasMode.Inserting) {
+        return;
+      }
+
+      // TODO: ADD Case for drawing
+      setCanvasState({ origin: point, mode: CanvasMode.Pressing });
+    },
+    [camera, canvasState.mode, setCanvasState]
+  );
+
   const onPointerUp = useMutation(
     ({}, e) => {
       const point = pointerEventsToCanvasPoint(e, camera);
-      if (canvasState.mode === CanvasMode.Inserting) {
+      if (
+        canvasState.mode === CanvasMode.None ||
+        canvasState.mode === CanvasMode.Pressing
+      ) {
+        unselectLayer();
+        setCanvasState({ mode: CanvasMode.None });
+      } else if (canvasState.mode === CanvasMode.Inserting) {
         insertLayer(canvasState.LayerType, point);
       } else {
         setCanvasState({ mode: CanvasMode.None });
@@ -153,7 +207,7 @@ const Canvas = ({ boardId }: CanvasProps) => {
 
       history.resume();
     },
-    [camera, canvasState, history, insertLayer]
+    [camera, canvasState, history, insertLayer, unselectLayer]
   );
 
   const onLayerPointerDown = useMutation(
@@ -204,11 +258,13 @@ const Canvas = ({ boardId }: CanvasProps) => {
         undo={history.undo}
         redo={history.redo}
       />
+      <SelectionTool camera={camera} setLastUsedColor={setLastUserColor} />
       <svg
         onWheel={onWheel}
         onPointerMove={onPointerMove}
         onPointerLeave={onPointerLeave}
         onPointerUp={onPointerUp}
+        onPointerDown={onPointerDown}
         className="h-[100vh] w-[100vw] absolute"
       >
         <g style={{ transform: `translate(${camera.x}px, ${camera.y}px)` }}>

@@ -34,7 +34,7 @@ const CanvasInfo = ({ boardId }: CanvasInfoProps) => {
           </Link>
         </Button>
       </Hint>
-      <div className="bg-neutral-700 px-1.5"></div>
+      <div className="bg-neutral-200 h-6 w-[1px] rounded-sm"></div>
       <Hint label="Edit Title" side="bottom" sideOffset={10}>
         <Button
           variant="board"
@@ -44,7 +44,7 @@ const CanvasInfo = ({ boardId }: CanvasInfoProps) => {
           {data.title}
         </Button>
       </Hint>
-      <div className="bg-neutral-700 px-1.5"></div>
+      <div className="bg-neutral-200 h-6 w-[1px] rounded-sm"></div>
       <BoardActions
         id={data._id}
         title={data.title}

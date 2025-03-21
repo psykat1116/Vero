@@ -18,8 +18,6 @@ export function resizeBounds(bounds: XYWH, corner: Side, point: Point): XYWH {
     height: bounds.height,
   };
 
-  console.log(corner, point, bounds);
-
   if ((corner & Side.Left) === Side.Left) {
     result.x = Math.min(point.x, bounds.x + bounds.width);
     result.width = Math.abs(bounds.x + bounds.width - point.x);
