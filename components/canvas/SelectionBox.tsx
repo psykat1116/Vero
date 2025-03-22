@@ -15,11 +15,13 @@ const SelectionBox = memo(
       self.presence.selection.length === 1 ? self.presence.selection[0] : null
     );
 
-    const isShowingHandles = useStorage(
-      (root) =>
-        soleLayerId &&
-        root.layers.get(soleLayerId)?.type === LayerType.Rectangle
-    );
+    const isShowingHandles = useStorage((root) => {
+      return (
+        soleLayerId && root.layers.get(soleLayerId)?.type !== LayerType.Path
+      );
+    });
+
+    console.log(isShowingHandles);
 
     const bounds = useSelectionBounds();
     if (!bounds) {
