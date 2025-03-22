@@ -1,43 +1,45 @@
 "use client";
-import CanvasInfo from "./CanvasInfo";
-import Participants from "./Participants";
-import Toolbar from "./Toolbar";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { nanoid } from "nanoid";
+
 import {
-  Camera,
-  CanvasMode,
-  CanvasState,
-  Color,
-  LayerType,
-  Point,
-  Side,
-  XYWH,
-} from "@/types/canvas";
-import {
+  useSelf,
+  useStorage,
   useCanRedo,
   useCanUndo,
   useHistory,
   useMutation,
   useOthersMapped,
-  useSelf,
-  useStorage,
 } from "@liveblocks/react";
-import CursorPresence from "./CursorPresence";
+import { nanoid } from "nanoid";
+import { LiveObject } from "@liveblocks/client";
+import { useCallback, useEffect, useMemo, useState } from "react";
+
 import {
-  findIntersectingLayersWithRectangle,
+  Side,
+  XYWH,
+  Color,
+  Point,
+  Camera,
+  LayerType,
+  CanvasMode,
+  CanvasState,
+} from "@/types/canvas";
+import {
+  resizeBounds,
   penPointsToPathLayer,
   pointerEventsToCanvasPoint,
-  resizeBounds,
+  findIntersectingLayersWithRectangle,
 } from "@/lib/canvas";
-import { LiveObject } from "@liveblocks/client";
-import LayerPreview from "./LayerPreview";
+import Path from "@/components/tool/Path";
 import { IdToColor, RGBToHex } from "@/lib/color";
-import SelectionBox from "./SelectionBox";
-import SelectionTool from "./SelectionTool";
-import Path from "../tool/Path";
-import { useDisableScrollBounce } from "@/hook/UseDisableScrollBounce";
+import Toolbar from "@/components/canvas/Toolbar";
 import { useDeleteLayer } from "@/hook/UseDeleteLayer";
+import CanvasInfo from "@/components/canvas/CanvasInfo";
+import Participants from "@/components/canvas/Participants";
+import LayerPreview from "@/components/canvas/LayerPreview";
+import SelectionBox from "@/components/canvas/SelectionBox";
+import SelectionTool from "@/components/canvas/SelectionTool";
+import CursorPresence from "@/components/canvas/CursorPresence";
+import { useDisableScrollBounce } from "@/hook/UseDisableScrollBounce";
 
 interface CanvasProps {
   boardId: string;
@@ -50,7 +52,7 @@ const Canvas = ({ boardId }: CanvasProps) => {
   const canUndo = useCanUndo();
   const canRedo = useCanRedo();
   const history = useHistory();
-  const layerIds = useStorage((root) => root.layerIds) || []; // ! Check If any problem
+  const layerIds = useStorage((root) => root.layerIds) || [];
   const pencilDraft = useSelf((self) => self.presence.pencilDraft);
 
   const [canvasState, setCanvasState] = useState<CanvasState>({
@@ -62,6 +64,8 @@ const Canvas = ({ boardId }: CanvasProps) => {
     g: 20,
     b: 30,
   });
+
+  // * Layer Mutations
 
   const insertLayer = useMutation(
     (
@@ -131,6 +135,8 @@ const Canvas = ({ boardId }: CanvasProps) => {
     [canvasState]
   );
 
+  // * Drawing Mutations
+
   const insertPath = useMutation(
     ({ storage, self, setMyPresence }) => {
       const liveLayers = storage.get("layers");
@@ -194,6 +200,8 @@ const Canvas = ({ boardId }: CanvasProps) => {
     [lastUsedColor]
   );
 
+  // * Resize Selection Mutations
+
   const resizeSelectedLayer = useMutation(
     ({ storage, self }, point: Point) => {
       if (canvasState.mode !== CanvasMode.Resizing) {
@@ -216,6 +224,8 @@ const Canvas = ({ boardId }: CanvasProps) => {
     [canvasState]
   );
 
+  // * Selection Mutations
+
   const updateSelectionNet = useMutation(
     ({ storage, setMyPresence }, current: Point, origin: Point) => {
       const layers = storage.get("layers").toImmutable();
@@ -237,11 +247,15 @@ const Canvas = ({ boardId }: CanvasProps) => {
     [layerIds]
   );
 
+  // * Multiple Selection
+
   const startMultiSelection = useCallback((current: Point, origin: Point) => {
     if (Math.abs(current.x - origin.x) + Math.abs(current.y - origin.y) > 5) {
       setCanvasState({ mode: CanvasMode.SelectionNet, origin, current });
     }
   }, []);
+
+  // * Resize Selection
 
   const onResizeHandlePointerDown = useCallback(
     (corner: Side, initialBounds: XYWH) => {
@@ -250,6 +264,8 @@ const Canvas = ({ boardId }: CanvasProps) => {
     },
     [history]
   );
+
+  // * Event Handlers and Effects
 
   const onWheel = useCallback((e: React.WheelEvent) => {
     setCamers((camera) => ({
@@ -362,6 +378,8 @@ const Canvas = ({ boardId }: CanvasProps) => {
     [setCanvasState, camera, history, canvasState.mode]
   );
 
+  // * Others Selection Layer Color
+
   const selections = useOthersMapped((other) => other.presence.selection);
   const layerIdsToColorSelection = useMemo(() => {
     const layerIdsToColorSelection: Record<string, string> = {};
@@ -376,6 +394,8 @@ const Canvas = ({ boardId }: CanvasProps) => {
     return layerIdsToColorSelection;
   }, [selections]);
 
+  // * Keyboard Shortcuts
+
   const deleteLayers = useDeleteLayer();
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -384,14 +404,14 @@ const Canvas = ({ boardId }: CanvasProps) => {
         case "z": {
           if (e.ctrlKey || e.metaKey) {
             history.undo();
-            break;
           }
+          break;
         }
         case "y": {
           if (e.ctrlKey || e.metaKey) {
             history.redo();
-            break;
           }
+          break;
         }
         case "Delete": {
           deleteLayers();

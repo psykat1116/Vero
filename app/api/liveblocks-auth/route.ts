@@ -1,6 +1,6 @@
+import { api } from "@/convex/_generated/api";
 import { Liveblocks } from "@liveblocks/node";
 import { ConvexHttpClient } from "convex/browser";
-import { api } from "@/convex/_generated/api";
 import { auth, currentUser } from "@clerk/nextjs/server";
 
 const liveblocks = new Liveblocks({

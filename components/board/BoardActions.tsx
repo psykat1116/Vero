@@ -1,17 +1,18 @@
+import { toast } from "sonner";
+import { Link2, Pencil, Trash } from "lucide-react";
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
+
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { Link2, Pencil, Trash } from "lucide-react";
-import { toast } from "sonner";
-import { useApiMutation } from "@/hook/UseApiMutation";
 import { api } from "@/convex/_generated/api";
-import ConfirmModal from "../modal/ConfirmModal";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
+import { useApiMutation } from "@/hook/UseApiMutation";
 import { useRenameModal } from "@/store/useRenameModal";
+import ConfirmModal from "@/components/modal/ConfirmModal";
 
 interface BoardActionsProps {
   children: React.ReactNode;
@@ -38,7 +39,7 @@ const BoardActions = ({
         toast.success("Board Link Copied!");
       })
       .catch(() => {
-        toast.error("Failed To Copy");
+        toast.error("Failed To Copy Board Link!");
       });
   };
 
@@ -48,7 +49,7 @@ const BoardActions = ({
         toast.success("Board Deleted Successfully!");
       })
       .catch(() => {
-        toast.error("Failed To Delete Board");
+        toast.error("Failed To Delete Board!");
       });
   };
 
@@ -83,7 +84,7 @@ const BoardActions = ({
         >
           <Button
             variant="ghost"
-            className="p-3 cursor-pointer text-sm w-full justify-start font-normal"
+            className="p-3 hover:text-red-600 cursor-pointer text-sm w-full justify-start font-normal text-red-500"
           >
             <Trash className="h-4 w-4 mr-2" />
             Delete

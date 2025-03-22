@@ -1,5 +1,8 @@
 "use client";
-import { useRenameModal } from "@/store/useRenameModal";
+
+import { toast } from "sonner";
+import { FormEventHandler, useEffect, useState } from "react";
+
 import {
   Dialog,
   DialogContent,
@@ -8,13 +11,12 @@ import {
   DialogClose,
   DialogTitle,
   DialogFooter,
-} from "../ui/dialog";
-import { FormEventHandler, useEffect, useState } from "react";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { useApiMutation } from "@/hook/UseApiMutation";
+} from "@/components/ui/dialog";
 import { api } from "@/convex/_generated/api";
-import { toast } from "sonner";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useApiMutation } from "@/hook/UseApiMutation";
+import { useRenameModal } from "@/store/useRenameModal";
 
 const RenameModal = () => {
   const { mutate, pending } = useApiMutation(api.board.update);

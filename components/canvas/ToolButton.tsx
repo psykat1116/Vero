@@ -1,7 +1,7 @@
-import React from "react";
 import { LucideIcon } from "lucide-react";
-import Hint from "../Hint";
-import { Button } from "../ui/button";
+
+import Hint from "@/components/Hint";
+import { Button } from "@/components/ui/button";
 
 interface ToolButtonProps {
   label: string;

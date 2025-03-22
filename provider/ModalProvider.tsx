@@ -1,5 +1,7 @@
 "use client";
+
 import { useEffect, useState } from "react";
+
 import RenameModal from "@/components/modal/RenameModal";
 
 const ModalProvider = () => {

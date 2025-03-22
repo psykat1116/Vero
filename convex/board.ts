@@ -22,6 +22,8 @@ const images = [
   "/placeholder/18.svg",
 ];
 
+// * ------------------------ Create A New Board ------------------------
+
 export const create = mutation({
   args: {
     orgId: v.string(),
@@ -30,7 +32,7 @@ export const create = mutation({
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) {
-      throw new Error("Not authenticated");
+      throw new Error("Please Login To Continue!");
     }
 
     const randomImage = images[Math.floor(Math.random() * images.length)];
@@ -46,6 +48,8 @@ export const create = mutation({
   },
 });
 
+// * ------------------------- Delete Boards -------------------------
+
 export const remove = mutation({
   args: {
     id: v.id("boards"),
@@ -53,10 +57,21 @@ export const remove = mutation({
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) {
-      throw new Error("Not Authenticated");
+      throw new Error("Please Login To Continue!");
     }
 
-    // TODO: ADD Extra Permission Check
+    const board = await ctx.db.get(args.id);
+    if (!board) {
+      throw new Error("Board Does Not Exist!");
+    }
+
+    if (
+      identity.org_role !== "org:admin" &&
+      board.authorId !== identity.subject
+    ) {
+      throw new Error("Only Admins and Board Creators Can Delete Boards!");
+    }
+
     const existingFavorite = await ctx.db
       .query("userFavorites")
       .withIndex("by_user_board", (q) =>
@@ -72,12 +87,26 @@ export const remove = mutation({
   },
 });
 
+// * ------------------------- Update Board Title -------------------------
+
 export const update = mutation({
   args: { id: v.id("boards"), title: v.string() },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) {
-      throw new Error("Not Authenticated");
+      throw new Error("Please Login To Continue!");
+    }
+
+    const board = await ctx.db.get(args.id);
+    if (!board) {
+      throw new Error("Board Does Not Exist!");
+    }
+
+    if (
+      identity.org_role !== "org:admin" &&
+      board.authorId !== identity.subject
+    ) {
+      throw new Error("Only Admins and Board Creators Can Rename Boards!");
     }
 
     const title = args.title.trim();
@@ -91,25 +120,25 @@ export const update = mutation({
       throw new Error("Title cannot be longer than 60 characters");
     }
 
-    // TODO: ADD Extra Permission Check
+    const updateBoard = await ctx.db.patch(args.id, { title });
 
-    const board = await ctx.db.patch(args.id, { title });
-
-    return board;
+    return updateBoard;
   },
 });
+
+// * ------------------------- Favorite Board -------------------------
 
 export const favorite = mutation({
   args: { id: v.id("boards"), orgId: v.string() },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) {
-      throw new Error("Not Authenticated");
+      throw new Error("Please Login To Continue!");
     }
 
     const board = await ctx.db.get(args.id);
     if (!board) {
-      throw new Error("Board Not Found");
+      throw new Error("Board Does Not Exist!");
     }
 
     const existingFavorite = await ctx.db
@@ -133,12 +162,14 @@ export const favorite = mutation({
   },
 });
 
+// * ------------------------- Get Board ------------------------- //
+
 export const get = query({
   args: { id: v.id("boards") },
   handler: async (ctx, args) => {
     const board = await ctx.db.get(args.id);
     if (!board) {
-      throw new Error("Board Not Found");
+      throw new Error("Board Does Not Exist!");
     }
 
     return board;

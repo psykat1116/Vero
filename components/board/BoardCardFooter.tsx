@@ -1,5 +1,5 @@
-import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Star } from "lucide-react";
 
 interface BoardCardFooterProps {
   authorLabel: string;
@@ -34,7 +34,7 @@ const BoardCardFooter = ({
         disabled={disabled}
         onClick={handleClick}
         className={cn(
-          "opacity-0 group-hover:opacity-100 transition absolute top-3 right-3 text-muted-foreground hover:text-blue-600",
+          "opacity-0 group-hover:opacity-100 transition absolute top-3 right-3 text-muted-foreground hover:text-blue-600 cursor-pointer",
           disabled && "cursor-not-allowed opacity-75"
         )}
       >

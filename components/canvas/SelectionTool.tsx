@@ -1,12 +1,13 @@
-import { useSelectionBounds } from "@/hook/UseSelectionBounds";
-import { Camera, Color } from "@/types/canvas";
+import { memo } from "react";
 import { useMutation, useSelf } from "@liveblocks/react";
-import React, { memo } from "react";
-import ColorPicker from "./ColorPicker";
-import { useDeleteLayer } from "@/hook/UseDeleteLayer";
-import Hint from "../Hint";
-import { Button } from "../ui/button";
 import { BringToFront, SendToBack, Trash2 } from "lucide-react";
+
+import Hint from "@/components/Hint";
+import { Camera, Color } from "@/types/canvas";
+import { Button } from "@/components/ui/button";
+import { useDeleteLayer } from "@/hook/UseDeleteLayer";
+import ColorPicker from "@/components/canvas/ColorPicker";
+import { useSelectionBounds } from "@/hook/UseSelectionBounds";
 
 interface SelectionToolProps {
   camera: Camera;

@@ -1,10 +1,11 @@
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { api } from "@/convex/_generated/api";
-import { useOrganization } from "@clerk/nextjs";
-import { useApiMutation } from "@/hook/UseApiMutation";
 import { toast } from "sonner";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useOrganization } from "@clerk/nextjs";
+
+import { api } from "@/convex/_generated/api";
+import { Button } from "@/components/ui/button";
+import { useApiMutation } from "@/hook/UseApiMutation";
 
 const EmptyBoards = () => {
   const router = useRouter();
@@ -22,8 +23,8 @@ const EmptyBoards = () => {
         toast.success("Board Created Successfully");
         router.push(`/board/${id}`);
       })
-      .catch((err) => {
-        toast.error(err.message);
+      .catch(() => {
+        toast.error("Failed to Create Board");
       });
   };
 

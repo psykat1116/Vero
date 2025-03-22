@@ -1,8 +1,10 @@
 "use client";
+
+import { use } from "react";
+import Room from "@/components/Room";
+
 import Canvas from "@/components/canvas/Canvas";
 import Loading from "@/components/canvas/Loading";
-import Room from "@/components/Room";
-import { use } from "react";
 
 interface BoardIDPageProps {
   params: Promise<{ boardId: string }>;

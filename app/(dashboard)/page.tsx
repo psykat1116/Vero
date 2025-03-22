@@ -1,8 +1,9 @@
 "use client";
 import { use } from "react";
+import { useOrganization } from "@clerk/nextjs";
+
 import BoardList from "@/components/board/BoardList";
 import EmptyOrganization from "@/components/empty/EmptyOrganization";
-import { useOrganization } from "@clerk/nextjs";
 
 interface DashboardPageProps {
   searchParams: Promise<{
@@ -19,7 +20,11 @@ const DashboardPage = ({ searchParams }: DashboardPageProps) => {
       {!organization ? (
         <EmptyOrganization />
       ) : (
-        <BoardList orgId={organization.id} search={search} favorites={favorites} />
+        <BoardList
+          orgId={organization.id}
+          search={search}
+          favorites={favorites}
+        />
       )}
     </div>
   );

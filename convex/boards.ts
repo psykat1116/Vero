@@ -2,6 +2,8 @@ import { v } from "convex/values";
 import { query } from "./_generated/server";
 import { getAllOrThrow } from "convex-helpers/server/relationships";
 
+// * ------------------------ Get All Boards ------------------------
+
 export const get = query({
   args: {
     orgId: v.string(),

@@ -1,6 +1,9 @@
-import { shallow } from "@liveblocks/react";
 import { Layer, XYWH } from "@/types/canvas";
+
+import { shallow } from "@liveblocks/react";
 import { useStorage, useSelf } from "@liveblocks/react";
+
+// * This Function Takes an Array of Layers and Returns The Bounding Box Of The Layers.
 
 const boundingBox = (layers: Layer[]): XYWH | null => {
   const first = layers[0];
@@ -36,6 +39,8 @@ const boundingBox = (layers: Layer[]): XYWH | null => {
 
   return null;
 };
+
+// * This Hook Returns The Bounding Box Of The Selected Layers.
 
 export const useSelectionBounds = () => {
   const selection = useSelf((me) => me.presence.selection);

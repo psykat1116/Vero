@@ -1,6 +1,5 @@
-import React from "react";
-import CreateOrg from "./CreateOrg";
-import OrgList from "./OrgList";
+import OrgList from "@/components/sidebar/OrgList";
+import CreateOrg from "@/components/sidebar/CreateOrg";
 
 const Sidebar = () => {
   return (

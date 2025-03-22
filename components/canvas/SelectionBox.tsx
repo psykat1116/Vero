@@ -1,7 +1,8 @@
-import { useSelectionBounds } from "@/hook/UseSelectionBounds";
-import { LayerType, Side, XYWH } from "@/types/canvas";
-import { useSelf, useStorage } from "@liveblocks/react";
 import { memo } from "react";
+import { useSelf, useStorage } from "@liveblocks/react";
+
+import { LayerType, Side, XYWH } from "@/types/canvas";
+import { useSelectionBounds } from "@/hook/UseSelectionBounds";
 
 interface SelectionBoxProps {
   onResizeHandlePointerDown: (corner: Side, initialBounds: XYWH) => void;
@@ -20,8 +21,6 @@ const SelectionBox = memo(
         soleLayerId && root.layers.get(soleLayerId)?.type !== LayerType.Path
       );
     });
-
-    console.log(isShowingHandles);
 
     const bounds = useSelectionBounds();
     if (!bounds) {

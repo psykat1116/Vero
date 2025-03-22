@@ -1,6 +1,5 @@
 import { RGBToHex } from "@/lib/color";
 import { Color } from "@/types/canvas";
-import React from "react";
 
 interface ColorButtonProps {
   onClick: (color: Color) => void;

@@ -1,6 +1,7 @@
 import { useOthers, useSelf } from "@liveblocks/react";
-import UserAvatar from "./UserAvatar";
+
 import { IdToColor } from "@/lib/color";
+import UserAvatar from "@/components/canvas/UserAvatar";
 
 const MAX_SHOWN_USERS = 2;
 

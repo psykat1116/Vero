@@ -1,12 +1,13 @@
 "use client";
 
 import {
-  OrganizationSwitcher,
   UserButton,
   useOrganization,
+  OrganizationSwitcher,
 } from "@clerk/nextjs";
-import SearchInput from "./SearchInput";
-import InviteButton from "./InviteButton";
+
+import SearchInput from "@/components/navbar/SearchInput";
+import InviteButton from "@/components/navbar/InviteButton";
 
 const Navbar = () => {
   const { organization } = useOrganization();

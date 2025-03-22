@@ -1,10 +1,11 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { OrganizationSwitcher } from "@clerk/nextjs";
-import { Button } from "../ui/button";
-import { LayoutDashboard, Star } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { OrganizationSwitcher } from "@clerk/nextjs";
+import { LayoutDashboard, Star } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 
 const OrgSidebar = () => {
   const searchParams = useSearchParams();

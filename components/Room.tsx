@@ -4,8 +4,9 @@ import {
   LiveblocksProvider,
   RoomProvider,
   ClientSideSuspense,
-} from "@liveblocks/react/suspense";
+} from "@liveblocks/react";
 import { LiveList, LiveMap, LiveObject } from "@liveblocks/client";
+
 import { Layer } from "@/types/canvas";
 
 interface RoomProps {

@@ -1,6 +1,5 @@
-import React from "react";
-import { EllipseLayer } from "@/types/canvas";
 import { RGBToHex } from "@/lib/color";
+import { EllipseLayer } from "@/types/canvas";
 
 interface EllipseProps {
   id: string;

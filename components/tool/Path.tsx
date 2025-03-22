@@ -1,5 +1,5 @@
-import React from "react";
 import getStroke from "perfect-freehand";
+
 import { getSvgPathFromStroke } from "@/lib/canvas";
 
 interface PathProps {

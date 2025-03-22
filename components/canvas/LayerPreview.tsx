@@ -1,12 +1,13 @@
-import { LayerType } from "@/types/canvas";
-import { useStorage } from "@liveblocks/react";
 import { memo } from "react";
-import Rectangle from "../tool/Rectangle";
-import Ellipse from "../tool/Ellipse";
-import Text from "../tool/Text";
-import Note from "../tool/Note";
-import Path from "../tool/Path";
+import { useStorage } from "@liveblocks/react";
+
 import { RGBToHex } from "@/lib/color";
+import Text from "@/components/tool/Text";
+import Note from "@/components/tool/Note";
+import Path from "@/components/tool/Path";
+import { LayerType } from "@/types/canvas";
+import Ellipse from "@/components/tool/Ellipse";
+import Rectangle from "@/components/tool/Rectangle";
 
 interface LayerPreviewProps {
   id: string;

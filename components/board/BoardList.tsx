@@ -1,10 +1,11 @@
-import EmptyBoards from "../empty/EmptyBoards";
-import EmptyFavorites from "../empty/EmptyFavorites";
-import EmptySearch from "../empty/EmptySearch";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import BoardCard from "./BoardCard";
-import NewBoardCard from "./NewBoardCard";
+
+import BoardCard from "@/components/board/BoardCard";
+import EmptySearch from "@/components/empty/EmptySearch";
+import EmptyBoards from "@/components/empty/EmptyBoards";
+import NewBoardCard from "@/components/board/NewBoardCard";
+import EmptyFavorites from "@/components/empty/EmptyFavorites";
 
 interface BoardListProps {
   orgId: string;
@@ -18,7 +19,7 @@ const BoardList = ({ orgId, search, favorites }: BoardListProps) => {
   if (data === undefined) {
     return (
       <div>
-        <h2 className="text-3xl">
+        <h2 className="text-3xl font-semibold">
           {favorites ? "Favorite Boards" : "Team Boards"}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 mt-8 gap-5 pb-10">
@@ -48,7 +49,7 @@ const BoardList = ({ orgId, search, favorites }: BoardListProps) => {
 
   return (
     <div>
-      <h2 className="text-3xl">
+      <h2 className="text-3xl font-semibold">
         {favorites ? "Favorite Boards" : "Team Boards"}
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 mt-8 gap-5 pb-10">

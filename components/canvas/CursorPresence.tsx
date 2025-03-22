@@ -1,13 +1,15 @@
 "use client";
+
 import { memo } from "react";
 import {
   shallow,
   useOthersConnectionIds,
   useOthersMapped,
 } from "@liveblocks/react";
-import Cursor from "./Cursor";
-import Path from "../tool/Path";
+
 import { RGBToHex } from "@/lib/color";
+import Path from "@/components/tool/Path";
+import Cursor from "@/components/canvas/Cursor";
 
 const Cursors = () => {
   const ids = useOthersConnectionIds();

@@ -1,7 +1,8 @@
-import { getContrastColor, RGBToHex } from "@/lib/color";
-import { NoteLayer } from "@/types/canvas";
 import { useMutation } from "@liveblocks/react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
+
+import { NoteLayer } from "@/types/canvas";
+import { getContrastColor, RGBToHex } from "@/lib/color";
 
 interface NoteProps {
   id: string;
@@ -27,6 +28,7 @@ const Note = ({ id, onPointerDown, selectionColor, layer }: NoteProps) => {
     const liveLayers = storage.get("layers");
     liveLayers.get(id)?.set("value", newValue);
   }, []);
+  
   return (
     <foreignObject
       x={x}

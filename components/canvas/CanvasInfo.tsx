@@ -1,14 +1,14 @@
+import Link from "next/link";
+import Image from "next/image";
+import { Menu } from "lucide-react";
+import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { useQuery } from "convex/react";
 
-import Hint from "../Hint";
+import Hint from "@/components/Hint";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import Link from "next/link";
 import { useRenameModal } from "@/store/useRenameModal";
-import BoardActions from "../board/BoardActions";
-import { Menu } from "lucide-react";
+import BoardActions from "@/components/board/BoardActions";
 
 interface CanvasInfoProps {
   boardId: string;
@@ -19,6 +19,10 @@ const CanvasInfo = ({ boardId }: CanvasInfoProps) => {
   const data = useQuery(api.board.get, {
     id: boardId as Id<"boards">,
   });
+
+  if (typeof window !== "undefined" && data) {
+    document.title = `${data.title} | Vero | Real-Time Collaboration, Simplified`;
+  }
 
   if (!data) {
     return <InfoSkeleton />;

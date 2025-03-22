@@ -8,7 +8,8 @@ import {
   Type,
   Undo2,
 } from "lucide-react";
-import ToolButton from "./ToolButton";
+
+import ToolButton from "@/components/canvas/ToolButton";
 import { CanvasMode, CanvasState, LayerType } from "@/types/canvas";
 
 interface ToolbarProps {

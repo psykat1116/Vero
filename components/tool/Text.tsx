@@ -1,6 +1,7 @@
-import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
-import { RGBToHex } from "@/lib/color";
 import { useMutation } from "@liveblocks/react";
+import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
+
+import { RGBToHex } from "@/lib/color";
 import { TextLayer } from "@/types/canvas";
 
 interface TextProps {

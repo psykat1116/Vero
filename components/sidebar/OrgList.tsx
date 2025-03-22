@@ -1,6 +1,8 @@
 "use client";
+
 import { useOrganizationList } from "@clerk/nextjs";
-import Item from "./Item";
+
+import Item from "@/components/sidebar/Item";
 
 const OrgList = () => {
   const { userMemberships } = useOrganizationList({

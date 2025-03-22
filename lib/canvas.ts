@@ -9,6 +9,8 @@ import {
   XYWH,
 } from "@/types/canvas";
 
+// * ------------------------ Get Layer Bounds ------------------------ * //
+
 export const pointerEventsToCanvasPoint = (
   e: React.PointerEvent,
   camera: Camera
@@ -18,6 +20,8 @@ export const pointerEventsToCanvasPoint = (
     y: Math.round(e.clientY) - camera.y,
   };
 };
+
+// * ------------------------ Get Bounds Of Layers ------------------------ * //
 
 export function resizeBounds(bounds: XYWH, corner: Side, point: Point): XYWH {
   const result = {
@@ -49,6 +53,8 @@ export function resizeBounds(bounds: XYWH, corner: Side, point: Point): XYWH {
 
   return result;
 }
+
+// * ------------------------ Find All The Layers Under Selection Net ------------------------ * //
 
 export const findIntersectingLayersWithRectangle = (
   layerIds: readonly string[],
@@ -82,6 +88,8 @@ export const findIntersectingLayersWithRectangle = (
   return ids;
 };
 
+// * ------------------------ Pen Points To Path Layer ------------------------ * //
+
 export const penPointsToPathLayer = (
   points: number[][],
   color: Color
@@ -113,6 +121,8 @@ export const penPointsToPathLayer = (
     points: points.map(([x, y, pressure]) => [x - left, y - top, pressure]),
   };
 };
+
+// * ------------------------ From Points To SVG Path ------------------------ * //
 
 export const getSvgPathFromStroke = (stroke: number[][]) => {
   if (!stroke.length) return "";
