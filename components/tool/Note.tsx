@@ -1,15 +1,7 @@
 import { getContrastColor, RGBToHex } from "@/lib/color";
-import { cn } from "@/lib/utils";
 import { NoteLayer } from "@/types/canvas";
 import { useMutation } from "@liveblocks/react";
-import { Kalam } from "next/font/google";
-import React from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
-
-const font = Kalam({
-  subsets: ["latin"],
-  weight: ["400"],
-});
 
 interface NoteProps {
   id: string;
@@ -53,10 +45,7 @@ const Note = ({ id, onPointerDown, selectionColor, layer }: NoteProps) => {
         onChange={(e: ContentEditableEvent) => {
           updateValue(e.target.value);
         }}
-        className={cn(
-          "h-full w-full flex items-center justify-center text-center outline-none",
-          font.className
-        )}
+        className="h-full w-full flex items-center justify-center text-center outline-none font-kalam"
         style={{
           color: fill ? getContrastColor(fill) : "#fff",
           fontSize: calculateFontSize(width, height),

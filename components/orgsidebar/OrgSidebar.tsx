@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 import { OrganizationSwitcher } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import { LayoutDashboard, Star } from "lucide-react";
@@ -16,7 +15,7 @@ const OrgSidebar = () => {
       <Link href="/">
         <div className="flex items-center gap-x-2">
           <Image src="/Logo.svg" alt="Logo" height={40} width={40} />
-          <span className="font-semibold text-2xl">Vero</span>
+          <span className="font-semibold font-kalam text-2xl pt-1">Vero</span>
         </div>
       </Link>
       <OrganizationSwitcher

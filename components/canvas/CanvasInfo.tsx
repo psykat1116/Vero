@@ -25,12 +25,14 @@ const CanvasInfo = ({ boardId }: CanvasInfoProps) => {
   }
 
   return (
-    <div className="absolute top-2 left-2 bg-white rounded-md px-1.5 h-12 flex items-center z-10">
+    <div className="absolute top-2 left-2 bg-white rounded-md px-1.5 h-12 flex items-center z-10 shadow-md">
       <Hint label="Go To Boards" side="bottom" sideOffset={10}>
         <Button asChild className="px-2" variant="board">
           <Link href="/">
             <Image src="/Logo.svg" alt="Vero Logo" height={30} width={30} />
-            <span className="font-semibold text-xl text-black">Vero</span>
+            <span className="font-semibold font-kalam text-xl pt-1 text-black">
+              Vero
+            </span>
           </Link>
         </Button>
       </Hint>

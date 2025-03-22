@@ -1,10 +1,12 @@
 import { LayerType } from "@/types/canvas";
 import { useStorage } from "@liveblocks/react";
 import { memo } from "react";
-import Rectangle from "./Rectangle";
-import Ellipse from "./Ellipse";
-import Text from "./Text";
-import Note from "./Note";
+import Rectangle from "../tool/Rectangle";
+import Ellipse from "../tool/Ellipse";
+import Text from "../tool/Text";
+import Note from "../tool/Note";
+import Path from "../tool/Path";
+import { RGBToHex } from "@/lib/color";
 
 interface LayerPreviewProps {
   id: string;
@@ -56,8 +58,20 @@ const LayerPreview = memo(
             onPointerDown={onLayerPointerDown}
           />
         );
+      case LayerType.Path:
+        return (
+          <Path
+            key={id}
+            points={layer.points}
+            stroke={selectionColor}
+            x={layer.x}
+            y={layer.y}
+            fill={layer.fill ? RGBToHex(layer.fill) : "#000"}
+            onPointerDown={(e) => onLayerPointerDown(e, id)}
+          />
+        );
       default:
-        console.warn("Unknown layer type", layer.type);
+        console.warn("Unknown layer type");
         return null;
     }
   }

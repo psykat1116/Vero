@@ -1,15 +1,7 @@
-import React from "react";
-import { Kalam } from "next/font/google";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
-import { cn } from "@/lib/utils";
 import { RGBToHex } from "@/lib/color";
 import { useMutation } from "@liveblocks/react";
 import { TextLayer } from "@/types/canvas";
-
-const font = Kalam({
-  subsets: ["latin"],
-  weight: ["400"],
-});
 
 interface TextProps {
   id: string;
@@ -52,10 +44,7 @@ const Text = ({ id, layer, onPointerDown, selectionColor }: TextProps) => {
         onChange={(e: ContentEditableEvent) => {
           updateValue(e.target.value);
         }}
-        className={cn(
-          "h-full w-full flex items-center justify-center text-center drop-shadow-md outline-none",
-          font.className
-        )}
+        className="h-full w-full flex items-center justify-center text-center drop-shadow-md outline-none font-kalam"
         style={{
           color: fill ? RGBToHex(fill) : "#000",
           fontSize: calculateFontSize(width, height),

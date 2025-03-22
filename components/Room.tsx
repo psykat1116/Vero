@@ -19,7 +19,12 @@ const Room = ({ children, roomId, fallback }: RoomProps) => {
     <LiveblocksProvider authEndpoint={"/api/liveblocks-auth"} throttle={16}>
       <RoomProvider
         id={roomId}
-        initialPresence={{ cursor: null, selection: [] }}
+        initialPresence={{
+          cursor: null,
+          selection: [],
+          pencilDraft: null,
+          penColor: null,
+        }}
         initialStorage={{
           layers: new LiveMap<string, LiveObject<Layer>>(),
           layerIds: new LiveList<string>([]),

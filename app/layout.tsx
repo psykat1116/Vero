@@ -1,14 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import { Kalam, Poppins } from "next/font/google";
 import "./globals.css";
 import ConvexClientProvider from "@/provider/ConvexClientProvider";
 import { Toaster } from "@/components/ui/sonner";
 import ModalProvider from "@/provider/ModalProvider";
 
-const font = Poppins({
+const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin", "latin-ext"],
   style: ["normal", "italic"],
+});
+
+const kalam = Kalam({
+  weight: ["300", "400", "700"],
+  subsets: ["latin", "latin-ext"],
+  style: ["normal"],
+  variable: "--font-kalam",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${font.className} antialiased`}>
+      <body className={`${poppins.className} ${kalam.variable} antialiased`}>
         <ConvexClientProvider>
           <ModalProvider />
           <Toaster />
