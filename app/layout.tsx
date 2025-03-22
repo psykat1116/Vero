@@ -47,6 +47,23 @@ export const metadata: Metadata = {
     "miro-clone",
     "miro-clone-github",
   ],
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: "https://vero-three.vercel.app",
+    siteName: "Vero",
+    title: "Vero | Real-Time Collaboration, Simplified",
+    description:
+      "Vero is an ultra-fast, collaborative whiteboard designed for teams to ideate, sketch, and brainstorm in real time. With a sleek, intuitive interface and seamless cloud synchronization, Vero ensures that ideas flow effortlessly—whether you're mapping out strategies, wireframing designs, or conducting interactive workshops. Experience instant updates, AI-assisted organization, and frictionless teamwork, no matter where you are. Stay in sync, think faster, and create together with Vero.",
+    images: [
+      {
+        url: "https://github.com/psykat1116/Vero/blob/master/public/OpenGraph.png?raw=true",
+        width: 1200,
+        height: 630,
+        type: "image/png",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
