@@ -316,7 +316,6 @@ const Canvas = ({ boardId }: CanvasProps) => {
       }
 
       if (canvasState.mode === CanvasMode.Pencil) {
-        console.log("Pencil Mode");
         startDrawing(point, e.pressure);
         return;
       }
@@ -399,7 +398,6 @@ const Canvas = ({ boardId }: CanvasProps) => {
   const deleteLayers = useDeleteLayer();
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      console.log("Key Down", e.key);
       switch (e.key) {
         case "z": {
           if (e.ctrlKey || e.metaKey) {

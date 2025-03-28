@@ -6,8 +6,8 @@ const EmptySearch = () => {
       <Image
         src="/EmptySearch.png"
         alt="EmptySearch"
-        height={250}
-        width={250}
+        height={350}
+        width={350}
       />
       <h2 className="text-2xl font-semibold mt-6">No Results Found!</h2>
       <p className="text-muted-foreground text-sm mt-2">

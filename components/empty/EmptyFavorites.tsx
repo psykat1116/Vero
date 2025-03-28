@@ -6,8 +6,8 @@ const EmptyFavorites = () => {
       <Image
         src="/EmptyFavorites.png"
         alt="EmptyFavorites"
-        height={350}
-        width={350}
+        height={300}
+        width={300}
       />
       <h2 className="text-2xl font-semibold">No Results Found!</h2>
       <p className="text-muted-foreground text-sm mt-2">

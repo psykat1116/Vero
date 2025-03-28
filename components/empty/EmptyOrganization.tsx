@@ -20,7 +20,9 @@ const EmptyOrganization = () => {
       <div className="mt-6">
         <Dialog>
           <DialogTrigger asChild>
-            <Button size="lg">Create Organization</Button>
+            <Button size="lg" className="cursor-pointer">
+              Create Organization
+            </Button>
           </DialogTrigger>
           <DialogContent className="bg-transparent border-none shadow-none p-0 w-[440px]">
             <DialogTitle />

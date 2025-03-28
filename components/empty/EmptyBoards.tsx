@@ -41,7 +41,12 @@ const EmptyBoards = () => {
         Start By Creating a Board For Your Organization
       </p>
       <div className="mt-6">
-        <Button disabled={pending} size="lg" onClick={handleClick}>
+        <Button
+          disabled={pending}
+          size="lg"
+          onClick={handleClick}
+          className="cursor-pointer"
+        >
           Create Board
         </Button>
       </div>

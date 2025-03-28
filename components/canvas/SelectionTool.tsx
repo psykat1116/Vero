@@ -66,8 +66,6 @@ const SelectionTool = memo(
         const liveLayers = storage.get("layers");
         setLastUsedColor(fill);
 
-        console.log("selection", fill);
-
         selection?.forEach((id) => {
           liveLayers.get(id)?.set("fill", fill);
         });
