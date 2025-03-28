@@ -1,5 +1,5 @@
 import { toast } from "sonner";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -17,7 +17,7 @@ const NewBoardCard = ({ orgId, disabled }: NewBoardCardProps) => {
   const router = useRouter();
   const { mutate, pending } = useApiMutation(api.board.create);
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     if (disabled || pending) return;
     mutate({ orgId, title: "Untitled" })
       .then((id) => {
@@ -27,7 +27,7 @@ const NewBoardCard = ({ orgId, disabled }: NewBoardCardProps) => {
       .catch(() => {
         toast.error("Failed to create board!");
       });
-  };
+  }, [disabled, pending, mutate, orgId, router]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
