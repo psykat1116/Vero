@@ -1,8 +1,8 @@
 "use client";
 
 import { use } from "react";
-import Room from "@/components/Room";
 
+import Room from "@/components/Room";
 import Canvas from "@/components/canvas/Canvas";
 import Loading from "@/components/canvas/Loading";
 

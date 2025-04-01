@@ -1,6 +1,7 @@
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
+import { useSearch } from "@/hook/useSearch";
 import BoardCard from "@/components/board/BoardCard";
 import EmptySearch from "@/components/empty/EmptySearch";
 import EmptyBoards from "@/components/empty/EmptyBoards";
@@ -9,11 +10,10 @@ import EmptyFavorites from "@/components/empty/EmptyFavorites";
 
 interface BoardListProps {
   orgId: string;
-  search?: string;
-  favorites?: string;
 }
 
-const BoardList = ({ orgId, search, favorites }: BoardListProps) => {
+const BoardList = ({ orgId }: BoardListProps) => {
+  const { search, favorites } = useSearch();
   const data = useQuery(api.boards.get, { orgId, search, favorites });
 
   if (data === undefined) {
