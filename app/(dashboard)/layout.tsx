@@ -2,6 +2,8 @@ import Navbar from "@/components/navbar/Navbar";
 import Sidebar from "@/components/sidebar/Sidebar";
 import OrgSidebar from "@/components/orgsidebar/OrgSidebar";
 
+export const dynamic = "force-dynamic";
+
 interface DashboardLayoutProps {
   children: React.ReactNode;
 }
